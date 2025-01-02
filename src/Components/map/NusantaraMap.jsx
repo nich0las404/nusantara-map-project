@@ -10,8 +10,8 @@ const NusantaraMap = () => {
     d3.select(mapRef.current).selectAll("*").remove();
 
     // Define the dimensions of the SVG
-    const width = 1200; // Fixed width
-    const height = 1000; // Fixed height
+    const width = 1200;
+    const height = 1000;
 
     const svg = d3
       .select(mapRef.current)
@@ -22,47 +22,93 @@ const NusantaraMap = () => {
       .attr("preserveAspectRatio", "xMidYMid meet");
 
     // Create a projection and path generator
-    const projection = d3.geoMercator().fitSize([width, height], indonesiaGeoJson); // Use geoMercator
+    const projection = d3.geoMercator().fitSize([width, height], indonesiaGeoJson);
     const path = d3.geoPath().projection(projection);
 
     // Define the grouping of provinces
     const majorIslands = {
       Sumatra: [
-        "ACEH", "SUMATERA UTARA", "SUMATERA BARAT", "BENGKULU", "JAMBI", 
-        "LAMPUNG", "SUMATERA SELATAN", "BANGKA BELITUNG", "RIAU"
+        "RIAU",
+        "SUMATERA UTARA",
+        "BANGKA BELITUNG",
+        "SUMATERA BARAT",
+        "SUMATERA SELATAN",
+        "JAMBI",
+        "LAMPUNG",
+        "BENGKULU",
+        "ACEH"
       ],
       Java: [
-        "DKI JAKARTA", "JAWA BARAT", "JAWA TENGAH", "JAWA TIMUR", 
-        "BANTEN", "DAERAH ISTIMEWA YOGYAKARTA"
+        "DAERAH ISTIMEWA YOGYAKARTA",
+        "JAWA TENGAH",
+        "BANTEN",
+        "JAWA TIMUR",
+        "DKI JAKARTA",
+        "JAWA BARAT"
       ],
       Kalimantan: [
-        "KALIMANTAN BARAT", "KALIMANTAN TENGAH", "KALIMANTAN SELATAN", "KALIMANTAN TIMUR"
+        "KALIMANTAN SELATAN",
+        "KALIMANTAN BARAT",
+        "KALIMANTAN TIMUR",
+        "KALIMANTAN TENGAH"
       ],
       Sulawesi: [
-        "SULAWESI UTARA", "SULAWESI TENGAH", "SULAWESI SELATAN", 
-        "SULAWESI TENGGARA", "GORONTALO"
+        "GORONTALO",
+        "SULAWESI TENGGARA",
+        "SULAWESI SELATAN",
+        "SULAWESI TENGAH",
+        "SULAWESI UTARA"
       ],
       Papua: [
-        "IRIAN JAYA TIMUR", "IRIAN JAYA TENGAH", "IRIAN JAYA BARAT"
+        "IRIAN JAYA TIMUR",
+        "IRIAN JAYA TENGAH",
+        "IRIAN JAYA BARAT"
       ],
-      Maluku: ["MALUKU", "MALUKU UTARA"],
-      NusaPenida: ["BALI", "NUSATENGGARA BARAT", "NUSA TENGGARA TIMUR"],
-    };
+      Maluku: [
+        "MALUKU UTARA",
+        "MALUKU"
+      ],
+      NusaPenida: [
+        "NUSATENGGARA BARAT",
+        "NUSA TENGGARA TIMUR",
+        "BALI"
+      ]
+    };    
 
-    const featuresByIsland = Object.entries(majorIslands).flatMap(([majorIsland, provinces]) => 
-      indonesiaGeoJson.features.filter((feature) => provinces.includes(feature.properties.Propinsi.toUpperCase())).map((feature) => ({ ...feature, majorIsland }))
+    const featuresByIsland = Object.entries(majorIslands).flatMap(([majorIsland, provinces]) =>
+      indonesiaGeoJson.features
+        .filter((feature) => provinces.includes(feature.properties.Propinsi.toUpperCase()))
+        .map((feature, index) => ({
+          ...feature,
+          majorIsland,
+          number: index + 1, // Ensure consistent numbering
+        }))
     );
 
-    let counter = 1;
-    const numberedFeatures = featuresByIsland.map((feature) => ({
-      ...feature,
-      number: counter++,
-    }));
+    let globalIndex = 1;
+    featuresByIsland.forEach((feature) => {
+      feature.number = globalIndex++;
+    });
+
+    // Tooltip container
+    const tooltip = d3
+      .select("body")
+      .append("div")
+      .attr("class", "tooltip")
+      .style("position", "absolute")
+      .style("padding", "3px 6px")
+      .style("margin", "10px")
+      .style("background", "white")
+      .style("border", "1px solid black")
+      .style("border-radius", "5px")
+      .style("opacity", 0)
+      .style("font-size", '10px')
+      .style("font-family", 'Nunito');
 
     // Draw the map with numbered islands
     svg
       .selectAll("path")
-      .data(numberedFeatures)
+      .data(featuresByIsland)
       .enter()
       .append("path")
       .attr("d", path)
@@ -71,26 +117,54 @@ const NusantaraMap = () => {
       .attr("stroke-width", 0.5)
       .on("mouseover", function (event, d) {
         d3.select(this)
-          .attr("fill", "orange") // Change fill color
+          .attr("fill", "orange")
           .transition()
           .duration(200)
           .attr("transform", function () {
-            const [x, y] = path.centroid(d); // Get centroid of the feature
-            return `translate(${x}, ${y}) scale(1.15) translate(${-x}, ${-y})`; // Scale around the centroid
+            const [x, y] = path.centroid(d);
+            return `translate(${x}, ${y}) scale(1.1) translate(${-x}, ${-y})`;
           });
+
+        // Show tooltip
+        tooltip
+          .style("opacity", 1)
+          .html(d.properties.Propinsi)
+          .style("left", `${event.pageX + 10}px`)
+          .style("top", `${event.pageY + 10}px`);
       })
-      .on("mouseout", function (event, d) {
+      .on("mousemove", (event) => {
+        tooltip.style("left", `${event.pageX + 1}px`).style("top", `${event.pageY + 1}px`);
+      })
+      .on("mouseout", function () {
         d3.select(this)
-          .attr("fill", "lightgreen") // Reset fill color
+          .attr("fill", "lightgreen")
           .transition()
           .duration(200)
-          .attr("transform", "translate(0, 0) scale(1)"); // Reset transform
+          .attr("transform", "translate(0, 0) scale(1)");
+
+        tooltip.style("opacity", 0);
+      })
+      .on("click", function (event, d) {
+        const formattedName = d.properties.Propinsi
+      
+        const targetElement = document.getElementById(formattedName);
+      
+        if (targetElement) {
+          const offset = 100;
+          const elementPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+          const scrollToPosition = elementPosition - offset;
+        
+          window.scrollTo({ top: scrollToPosition, behavior: "smooth" });
+        } else {
+          console.error(`Element with id "${formattedName}" not found.`);
+        }
       });
+      
 
     // Add numbers to each island
     svg
       .selectAll("text")
-      .data(numberedFeatures)
+      .data(featuresByIsland)
       .enter()
       .append("text")
       .attr("x", (d) => path.centroid(d)[0])
@@ -98,9 +172,11 @@ const NusantaraMap = () => {
       .attr("text-anchor", "middle")
       .attr("alignment-baseline", "central")
       .attr("font-size", "10px")
-      .attr("fill", "black").style("font-family", "Nunito, sans-serif") // Explicitly set font-family
+      .attr("fill", "black")
+      .style("font-family", "Nunito, sans-serif")
       .style("font-weight", "1000")
-      .text((d) => d.number);
+      .style("pointer-events", "none")
+      .text((d) => d.number)
   }, []);
 
   return (

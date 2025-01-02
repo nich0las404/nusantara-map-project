@@ -15,7 +15,7 @@ const Hero = () => {
     }, []);
 
   return (
-    <div className="h-screen w-full relative flex justify-center items-center flex-col z-[1] bg-black">
+    <div id="hero" className="h-screen w-full relative flex justify-center items-center flex-col z-[1] bg-black">
         <div className=" opacity-50 -z-[1] w-full h-full bg-cover bg-center transition-all ease-in-out absolute top-0" style={{backgroundImage: `url(${gifs[currIndex]})`}}></div>
         {/* overlay effect */}
         <motion.div

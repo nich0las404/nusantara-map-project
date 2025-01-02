@@ -20,7 +20,7 @@ const Navbar = () => {
   return (
     <div
       className={`navbar font-hostGrotesk fixed top-0 z-10 transition-colors duration-300 ease-out ${
-        isScrolled ? 'bg-white shadow-md' : 'bg-transparent backdrop-blur-sm'
+        isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
       }`}
     >
       <div className="w-full">
@@ -53,6 +53,20 @@ const Navbar = () => {
             <li className="transition-colors ease-in-out duration-200 hover:bg-blue3 hover:text-white rounded-lg">
               <a>Map</a>
             </li>
+            <li>
+            <details>
+              <summary className='transition-colors ease-in-out duration-200 hover:bg-blue3 hover:text-white rounded-lg'>Parent</summary>
+                <ul className=" rounded-t-none pl-2 bg-white">
+                  <li className='hover:bg-blue3 rounded-lg hover:text-white'><a>Sumatra</a></li>
+                  <li className='hover:bg-blue3 rounded-lg hover:text-white'><a>Java</a></li>
+                  <li className='hover:bg-blue3 rounded-lg hover:text-white'><a>Kalimantan</a></li>
+                  <li className='hover:bg-blue3 rounded-lg hover:text-white'><a>Sulawesi</a></li>
+                  <li className='hover:bg-blue3 rounded-lg hover:text-white'><a>Papua</a></li>
+                  <li className='hover:bg-blue3 rounded-lg hover:text-white'><a>Maluku</a></li>
+                  <li className='hover:bg-blue3 rounded-lg hover:text-white'><a>Nusa Penida</a></li>
+                </ul>
+              </details>
+            </li>
             <li className="transition-colors ease-in-out duration-200 hover:bg-blue3 hover:text-white rounded-lg">
               <a>About</a>
             </li>
@@ -72,6 +86,22 @@ const Navbar = () => {
           <li className="transition-colors ease-in-out duration-200 hover:bg-blue3 hover:text-white rounded-lg">
             <a href="">Map</a>
           </li>
+          <li>
+            <details>
+              <summary className='transition-colors ease-in-out duration-200 hover:bg-blue3 hover:text-white rounded-lg'>Regions</summary>
+                <ul className={`   rounded-t-none ${
+        isScrolled ? 'bg-white' : 'backdrop-blur-xl  bg-transparent text-white'
+      }`}>
+                  <li className='hover:bg-blue3 rounded-lg hover:text-white'><a>Sumatra</a></li>
+                  <li className='hover:bg-blue3 rounded-lg hover:text-white'><a>Java</a></li>
+                  <li className='hover:bg-blue3 rounded-lg hover:text-white'><a>Kalimantan</a></li>
+                  <li className='hover:bg-blue3 rounded-lg hover:text-white'><a>Sulawesi</a></li>
+                  <li className='hover:bg-blue3 rounded-lg hover:text-white'><a>Papua</a></li>
+                  <li className='hover:bg-blue3 rounded-lg hover:text-white'><a>Maluku</a></li>
+                  <li className='hover:bg-blue3 rounded-lg hover:text-white text-[13.5px] tracking-tighter'><a>Nusa Penida</a></li>
+                </ul>
+              </details>
+            </li>
           <li className="transition-colors ease-in-out duration-200 hover:bg-blue3 hover:text-white rounded-lg">
             <a>About</a>
           </li>

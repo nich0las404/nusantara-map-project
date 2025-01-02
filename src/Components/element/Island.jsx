@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Island = ({id, name, alternativeName, history, funFacts, foods, touristSpots}
+const Island = ({index, id, name, alternativeName, history, funFacts, foods, touristSpots}
 ) => {
   const formatName = (name) => {
     if (!name) return ;
@@ -16,7 +16,7 @@ const Island = ({id, name, alternativeName, history, funFacts, foods, touristSpo
       .join(' ');
   };
   return (
-    <div className='font-nunito flex flex-col gap-6'>
+    <div id={`${name}`} className='font-nunito flex flex-col gap-6'>
       <h1 className='text-2xl md:text-3xl font-bold tracking-wide text-dark-blue5 font-hostGrotesk'>{id? `${id}.`: ''} {formatName(name)} <span className='text-[75%] opacity-75'>{alternativeName? `(${formatName(alternativeName)})`: ''}</span></h1>
       {/* history */}
       <div className='text-justify text-lg font-light -mt-6'>{history}</div>
@@ -32,7 +32,7 @@ const Island = ({id, name, alternativeName, history, funFacts, foods, touristSpo
         <p className='text-lg sm:text-xl font-semibold'>Famous Foods in <span className='font-extrabold text-blue5'>{formatName(name)}:</span></p>
         <ul className='gap-2 flex flex-col mt-1'>
           {foods.map((food, index) => <li>
-            <p className='-mb-2'><span className='text-blue5'>{index + 1? '•': ''}</span> {food.name} <span>({food.description})</span></p>
+            <p className='-mb-2 font-semibold'><span className='text-blue5'>{index + 1? '•': ''}</span> {food.name} <span className='opacity-80 font-light'>({food.description})</span></p>
             <a className='text-[80%] text-dark-blue5 opacity-70 duration-200 hover:underline ease-out hover:text-light-blue4' href={food.recipeLink}
             target='_blank'
             >Find recipe here!</a>
@@ -42,12 +42,12 @@ const Island = ({id, name, alternativeName, history, funFacts, foods, touristSpo
 
       {/* tourist Spots */}
       <div className='max-w-[110%]'>
-        <p className='text-lg sm:text-xl font-semibold mb-2'>Notable Tourist Locations in <span className='font-extrabold text-blue2'>{formatName(name)}:</span></p>
-        <ul className='grid grid-cols-1 sm:grid-cols-2 gap-8'>
+        <p className='text-lg sm:text-xl font-semibold mb-2'>Notable Tourist Locations in <span className='font-extrabold text-purple'>{formatName(name)}:</span></p>
+        <ul className='grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8'>
           {touristSpots.map((spot, index) => 
-            <div key={index} className='relative h-[30vw] min-h-48 bg-center object-fit bg-no-repeat bg-cover rounded-2xl'>
+            <div key={index} className='relative h-[30vw] min-h-52 bg-center object-fit bg-no-repeat bg-cover rounded-2xl'>
               <img className='w-full h-full object-cover rounded-2xl' src={spot.imageUrl} alt={spot.name} />
-              <p className='absolute bottom-0 right-0 py-2 px-3 bg-white rounded-tl-lg text-blue2 font-bold sm:text-sm'>{spot.name}</p>
+              <p className='absolute bottom-0 right-0 py-1 px-2 bg-white rounded-tl-lg text-purple font-bold sm:text-sm pb-0'>{spot.name}</p>
             </div>
           )}
         </ul>

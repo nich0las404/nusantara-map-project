@@ -5,12 +5,12 @@ import Islands from "./Components/Islands";
 function App() {
 
   return (
-    <>
+    <div className="max-screen-width">
       <Navbar/>
       <Hero/>
       <Map/>
       <Islands/>
-    </>
+    </div>
   )
 }
 
