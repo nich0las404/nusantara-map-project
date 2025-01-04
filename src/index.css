@@ -34,4 +34,10 @@
   .max-screen-width{
     @apply max-w-[1440px] mx-auto 
   }
+  .max-content-width{
+    @apply max-w-[1000px]
+  }
+  .about-text{
+    @apply text-pretty text-lg font-medium text-justify sm:text-xl/8 font-nunito
+  }
 }

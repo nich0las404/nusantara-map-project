@@ -96,8 +96,7 @@ const NusantaraMap = ({onIslandClick}) => {
       .append("div")
       .attr("class", "tooltip")
       .style("position", "absolute")
-      .style("padding", "3px 6px")
-      .style("margin", "10px")
+      .style("padding", "2px 4px")
       .style("background", "white")
       .style("border", "1px solid black")
       .style("border-radius", "5px")
@@ -130,11 +129,22 @@ const NusantaraMap = ({onIslandClick}) => {
         tooltip
           .style("opacity", 1)
           .html(d.properties.Propinsi)
-          .style("left", `${event.pageX + 10}px`)
-          .style("top", `${event.pageY + 10}px`);
+          const tooltipWidth = tooltip.node().offsetWidth;
+  let left = event.pageX + 10;
+  if (left + tooltipWidth > window.innerWidth) {
+    left = event.pageX - tooltipWidth - 10; // Adjust to avoid overflow
+  }
+
+  tooltip.style("left", `${left}px`).style("top", `${event.pageY + 10}px`);
       })
       .on("mousemove", (event) => {
-        tooltip.style("left", `${event.pageX + 1}px`).style("top", `${event.pageY + 1}px`);
+        const tooltipWidth = tooltip.node().offsetWidth;
+  let left = event.pageX + 10;
+  if (left + tooltipWidth > window.innerWidth) {
+    left = event.pageX - tooltipWidth; // Adjust to avoid overflow
+  }
+
+  tooltip.style("left", `${left}px`).style("top", `${event.pageY + 10}px`);
       })
       .on("mouseout", function () {
         d3.select(this)

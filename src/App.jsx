@@ -14,9 +14,9 @@ function App() {
     <div className="max-screen-width">
       <Navbar/>
       <Hero/>
+      <About/>
       <Map onIslandClick={handleIslandClick} />
       <Islands selectedIsland={selectedIsland} />
-      <About/>
     </div>
   )
 }

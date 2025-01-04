@@ -25,7 +25,7 @@ const Island = ({id, name, alternativeName, history, funFacts, foods, touristSpo
         {/* content */}
         <div className="collapse-content flex flex-col gap-6">
           {/* history */}
-      <div className='text-justify text-lg font-light -mt-[10px]'>{history}</div>
+      <div className='text-justify text-lg -mt-2 leading-[27px]'>{history}</div>
       {/* fun facts */}
       <div className='-mt-2'>
         <p className='font-semibold text-lg sm:text-xl mb-1'>{name? 'Fun Facts About': ''}<span className='text-dark-blue2 font-extrabold'>{name? ` ${formatName(name)}:`: ''}</span></p>
@@ -53,7 +53,7 @@ const Island = ({id, name, alternativeName, history, funFacts, foods, touristSpo
           {touristSpots.map((spot, index) => 
             <div key={index} className='relative h-[30vw] min-h-52 bg-center object-fit bg-no-repeat bg-cover rounded-2xl'>
               <img className='w-full h-full object-cover rounded-2xl' src={spot.imageUrl} alt={spot.name} />
-              <p className='absolute bottom-0 right-0 py-1 px-2 bg-white rounded-tl-lg text-purple font-bold sm:text-sm pb-0'>{spot.name}</p>
+              <p className='absolute bottom-0 right-0 py-1 px-2 bg-base-200 rounded-tl-lg text-purple font-bold sm:text-sm pb-0'>{spot.name}</p>
             </div>
           )}
         </ul>
