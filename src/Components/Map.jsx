@@ -1,6 +1,6 @@
 import NusantaraMap from "./map/NusantaraMap"
 
-const Map = () => {
+const Map = ({onIslandClick}) => {
   
   return (
     <div className='w-full mt-20 md:mt-24 text-center flex flex-col justify-center items-center'>
@@ -9,7 +9,7 @@ const Map = () => {
         The Nusantara landscape stretches along  5,000 kilometers, creating a vast maritime territory with diverse ecosystems. From the volcanic mountains that pierce the clouds to the crystal-clear waters teeming with marine life, Nusantara's landscape is breathtakingly varied. The Ring of Fire has blessed these islands with fertile volcanic soil, creating lush rainforests and productive agricultural lands.</p>
 
         <div className="w-full min-h-[450px] h-[39vw] p-4 bg-gradient-to-l  from-dark-blue5 to-blue overflow-x-auto overflow-y-hidden">
-        <NusantaraMap/>
+        <NusantaraMap onIslandClick={onIslandClick}/>
         </div>
     </div>
   )

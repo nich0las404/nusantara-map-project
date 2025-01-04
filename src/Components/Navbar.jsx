@@ -55,7 +55,7 @@ const Navbar = () => {
             </li>
             <li>
             <details>
-              <summary className='transition-colors ease-in-out duration-200 hover:bg-blue3 hover:text-white rounded-lg'>Parent</summary>
+              <summary className='transition-colors ease-in-out duration-200 hover:bg-blue3 hover:text-white rounded-lg'>Region</summary>
                 <ul className=" rounded-t-none pl-2 bg-white">
                   <li className='hover:bg-blue3 rounded-lg hover:text-white'><a>Sumatra</a></li>
                   <li className='hover:bg-blue3 rounded-lg hover:text-white'><a>Java</a></li>

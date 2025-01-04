@@ -1,7 +1,6 @@
-import React from 'react'
 
-const Island = ({index, id, name, alternativeName, history, funFacts, foods, touristSpots}
-) => {
+const Island = ({id, name, alternativeName, history, funFacts, foods, touristSpots}) => {
+  
   const formatName = (name) => {
     if (!name) return ;
     
@@ -16,10 +15,17 @@ const Island = ({index, id, name, alternativeName, history, funFacts, foods, tou
       .join(' ');
   };
   return (
-    <div id={`${name}`} className='font-nunito flex flex-col gap-6'>
-      <h1 className='text-2xl md:text-3xl font-bold tracking-wide text-dark-blue5 font-hostGrotesk'>{id? `${id}.`: ''} {formatName(name)} <span className='text-[75%] opacity-75'>{alternativeName? `(${formatName(alternativeName)})`: ''}</span></h1>
-      {/* history */}
-      <div className='text-justify text-lg font-light -mt-6'>{history}</div>
+    <div id={`${name}`} className='font-nunito flex flex-col'>
+      <div className="collapse bg-base-200">
+        <input 
+        type="checkbox"
+         />
+        <div className="collapse-title"><h1 className='text-2xl md:text-3xl font-bold tracking-wide text-dark-blue5 font-hostGrotesk'>{id? `${id}.`: ''} {formatName(name)} <span className='text-[75%] opacity-75'>{alternativeName? `(${formatName(alternativeName)})`: ''}</span></h1>
+        </div>
+        {/* content */}
+        <div className="collapse-content flex flex-col gap-6">
+          {/* history */}
+      <div className='text-justify text-lg font-light -mt-[10px]'>{history}</div>
       {/* fun facts */}
       <div className='-mt-2'>
         <p className='font-semibold text-lg sm:text-xl mb-1'>{name? 'Fun Facts About': ''}<span className='text-dark-blue2 font-extrabold'>{name? ` ${formatName(name)}:`: ''}</span></p>
@@ -51,6 +57,8 @@ const Island = ({index, id, name, alternativeName, history, funFacts, foods, tou
             </div>
           )}
         </ul>
+      </div>
+        </div>
       </div>
     </div>
   )

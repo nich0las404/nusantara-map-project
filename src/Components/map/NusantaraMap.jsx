@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import indonesiaGeoJson from "./indonesia-province-simple.json";
 
-const NusantaraMap = () => {
+const NusantaraMap = ({onIslandClick}) => {
   const mapRef = useRef(null);
 
   useEffect(() => {
@@ -123,7 +123,8 @@ const NusantaraMap = () => {
           .attr("transform", function () {
             const [x, y] = path.centroid(d);
             return `translate(${x}, ${y}) scale(1.1) translate(${-x}, ${-y})`;
-          });
+          })
+          ;
 
         // Show tooltip
         tooltip
@@ -158,6 +159,10 @@ const NusantaraMap = () => {
         } else {
           console.error(`Element with id "${formattedName}" not found.`);
         }
+
+        if (onIslandClick) {
+      onIslandClick(formattedName); // Pass the clicked island to the parent
+      }
       });
       
 
