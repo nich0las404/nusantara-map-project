@@ -15,7 +15,7 @@ const Hero = () => {
     }, []);
 
   return (
-    <div id="hero" className="h-screen w-full relative flex justify-center items-center flex-col z-[1] bg-black">
+    <div id="Hero" className="h-screen w-full relative flex justify-center items-center flex-col z-[1] bg-black">
         <div className=" opacity-50 -z-[1] w-full h-full bg-cover bg-center transition-all ease-in-out absolute top-0" style={{backgroundImage: `url(${gifs[currIndex]})`}}></div>
         {/* overlay effect */}
         <motion.div
@@ -49,10 +49,12 @@ const Hero = () => {
               ease: 'easeInOut'
             }}>An interactive journey throughout the Nusantara islands, showcasing it's rich history and cultural heritage</motion.p>
         </div>
-        <button className='hover:animate-[bounce] absolute sm:w-[140px] sm:h-[140px] sm:-bottom-[70px] -bottom-14
-          w-[120px] h-[120px] bg-blue3 rounded-full items-center hover:bg-blue5 duration-200 ease-out active:scale-90' >
+        <a className="btn hover:animate-[bounce] absolute sm:w-[140px] sm:h-[140px] sm:-bottom-[70px] -bottom-14
+          w-[120px] h-[120px] bg-blue3 rounded-full items-center hover:bg-blue5 duration-200 ease-out active:scale-90 border-none" href="#About">
+
           <i class="fa-solid fa-arrow-down text-white text-5xl sm:text-6xl "></i>
-          </button>
+
+        </a>
     </div>
   )
 }

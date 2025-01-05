@@ -3,6 +3,7 @@ import Navbar from "./Components/Navbar";
 import Map from "./Components/Map";
 import Islands from "./Components/Islands";
 import About from "./Components/About";
+import Footer from "./Components/footer";
 import { useState } from "react";
 function App() {
   const [selectedIsland, setSelectedIsland] = useState(null); // Track selected island
@@ -17,6 +18,7 @@ function App() {
       <About/>
       <Map onIslandClick={handleIslandClick} />
       <Islands selectedIsland={selectedIsland} />
+      <Footer/>
     </div>
   )
 }
